@@ -44,17 +44,6 @@ jobs:
       with:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-    - name: Install Nix
-      uses: DeterminateSystems/nix-installer-action@v2
-      with:
-        extra-conf: |
-          system-features = kvm
-
-    - name: Build the Docker image
-      run: |
-        nix build .#container
-        docker load < result
-
     # Build and push Docker image with Buildx (don't push on PR)
     # https://github.com/docker/build-push-action
     - name: Build and push Docker image
